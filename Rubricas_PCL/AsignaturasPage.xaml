@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Rubricas_PCL.AsignaturasPage" Title="Asignaturas">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+" Clicked="onAddBtnClicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="asignaturas_List" ItemsSource="{Binding}" ItemSelected="onSelection" RowHeight="50">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                         <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar" />
+                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Borrar" IsDestructive="True" />
+                         </ViewCell.ContextActions>
+                         <StackLayout Padding="15, 3">
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Number}" FontSize="Small" TextColor="Silver"/>
+                         </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </ContentPage.Content>
+</ContentPage>

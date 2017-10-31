@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Rubricas_PCL.MenuPage">
+    <ContentPage.Content>
+        <StackLayout Margin="30,30,0,0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Image Source="ic_school.png"></Image>
+                <Button Text="Asignaturas" Clicked="onAsignaturasBtnClicked"></Button>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                <Image Source="ic_library_books.png"></Image>
+                <Button Text="Rubricas" Clicked="onRubricasBtnClicked"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
