@@ -2,8 +2,13 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:Rubricas_PCL"
-            x:Class="Rubricas_PCL.AsignaturasTabPage">
+            x:Class="Rubricas_PCL.AsignaturasTabPage"
+            Title="BAM">
 
-    <local:EstudiantesDentroAsignaturasPage />
-    <local:EvaluacionesDentroAsignaturasPage />
+    <!--<local:EstudiantesDentroAsignaturasPage>
+       <x:Arguments>
+            <x:String>"{Binding Uid}"</x:String>
+        </x:Arguments>
+    </local:EstudiantesDentroAsignaturasPage>
+    <local:EvaluacionesDentroAsignaturasPage />-->
 </TabbedPage>

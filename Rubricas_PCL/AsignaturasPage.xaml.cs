@@ -11,66 +11,7 @@ using System.Diagnostics;
 namespace Rubricas_PCL
 {
 
-	public class Asignatura : INotifyPropertyChanged
-	{
-        private string uid;
-		private string name;
-		private string number;
-
-		public string Uid
-		{
-			set
-			{
-				if (uid != value)
-				{
-					uid = value;
-
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Uid"));
-					}
-				}
-			}
-			get
-			{
-				return uid;
-			}
-		}
-
-		public string Name
-		{
-			set
-			{
-				if (name != value)
-				{
-					name = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Name"));
-					}
-				}
-			}
-			get => name;
-		}
-
-		public string Number
-		{
-			set
-			{
-				if (number != value)
-				{
-					number = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Number"));
-					}
-				}
-			}
-			get => number;
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
+	
 
 
 	public partial class AsignaturasPage : ContentPage
@@ -105,7 +46,8 @@ namespace Rubricas_PCL
 				return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
 			}
 
-			await Navigation.PushAsync(new AsignaturasTabPage());
+            Asignatura asignatura = e.SelectedItem as Asignatura;
+            await Navigation.PushAsync(new AsignaturasTabPage(asignatura));
 			((ListView)sender).SelectedItem = null; // unselect item
 		}
 
@@ -119,11 +61,17 @@ namespace Rubricas_PCL
 			await Navigation.PushAsync(nextPage);
 		}
 
-		public void OnDelete(object sender, EventArgs e)
+		async public void OnDelete(object sender, EventArgs e)
 		{
 			var menuItem = ((MenuItem)sender);
 			Asignatura asignatura = menuItem.CommandParameter as Asignatura;
-			asignaturasCollection.Remove(asignatura);
+
+            await firebase
+                .Child(Utils.FireBase_Entity.ASIGNATURAS)
+                .Child(asignatura.Uid)
+                .DeleteAsync();
+
+            await getFireAsignaturas();
 		}
 
 		protected async override void OnAppearing()
@@ -135,7 +83,7 @@ namespace Rubricas_PCL
 		public async Task<int> getFireAsignaturas()
 		{
             var list = (await firebase
-                        .Child(Utils.Entity.FIRE_ASIGNATURAS)
+                        .Child(Utils.FireBase_Entity.ASIGNATURAS)
                         .OnceAsync<Asignatura>());
 
             asignaturasCollection.Clear();

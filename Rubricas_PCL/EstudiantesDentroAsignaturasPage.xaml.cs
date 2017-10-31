@@ -2,68 +2,35 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Query;
 using Xamarin.Forms;
 
 namespace Rubricas_PCL
 {
-	public class Estudiante : INotifyPropertyChanged
-	{
-		private string name;
-		private string apellido;
-
-		public string Name
-		{
-			set
-			{
-				if (name != value)
-				{
-					name = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Name"));
-					}
-				}
-			}
-			get => name;
-		}
-
-		public string Apellido
-		{
-			set
-			{
-				if (apellido != value)
-				{
-					apellido = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Apellido"));
-					}
-				}
-			}
-			get => apellido;
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
-
-
 	public partial class EstudiantesDentroAsignaturasPage : ContentPage
 	{
-		IList<Estudiante> estudiantesCollection = new ObservableCollection<Estudiante>{
-			new Estudiante{Name="Luis", Apellido="Goohsen"},
-		};
+		IList<Estudiante> estudiantesCollection = new ObservableCollection<Estudiante>{};
+        private FirebaseClient firebase;
+        private string asignaturaUid;
 
-		public EstudiantesDentroAsignaturasPage()
+        public EstudiantesDentroAsignaturasPage(string asignaturaUid)
 		{
-			BindingContext = estudiantesCollection;
-			InitializeComponent();
+			this.asignaturaUid = asignaturaUid;
+
+            BindingContext = estudiantesCollection;
+            InitializeComponent();
+            firebase = Utils.FIREBASE;
 		}
 
 		async void onAddBtnClicked(object sender, EventArgs e)
 		{
 
-			//var secondPage = new EstudiantesCreateUpdatePage(estudiantesCollection, true);
-			//await Navigation.PushAsync(secondPage);
+            Estudiante newEstudiante = new Estudiante();
+			var nextPage = new EstudiantesCreateUpdatePage(asignaturaUid, true);
+            nextPage.BindingContext = newEstudiante;
+			await Navigation.PushAsync(nextPage);
 		}
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
@@ -79,12 +46,12 @@ namespace Rubricas_PCL
 
 		async public void OnEdit(object sender, EventArgs e)
 		{
-			//var menuItem = ((MenuItem)sender);
-			//Estudiante estudiante = menuItem.CommandParameter as Estudiante;
+			var menuItem = ((MenuItem)sender);
+			Estudiante estudiante = menuItem.CommandParameter as Estudiante;
 
-			//var nextPage = new EstudiantesCreateUpdatePage(estudiantesCollection, false);
-			//nextPage.BindingContext = estudiante;
-			//await Navigation.PushAsync(nextPage);
+			var nextPage = new EstudiantesCreateUpdatePage(asignaturaUid, false);
+			nextPage.BindingContext = estudiante;
+			await Navigation.PushAsync(nextPage);
 		}
 
 		public void OnDelete(object sender, EventArgs e)
@@ -92,6 +59,32 @@ namespace Rubricas_PCL
 			var menuItem = ((MenuItem)sender);
 			Estudiante estudiante = menuItem.CommandParameter as Estudiante;
 			estudiantesCollection.Remove(estudiante);
+		}
+
+		protected async override void OnAppearing()
+		{
+			base.OnAppearing();
+			await getFireEstudiantes();
+		}
+
+		public async Task<int> getFireEstudiantes()
+		{
+			var list = (await firebase
+                        .Child(Utils.FireBase_Entity.ASIGNATURAS)
+                        .Child(this.asignaturaUid)
+                        .Child(Utils.FireBase_Entity.ESTUDIANTES)
+                        .OnceAsync<Estudiante>());
+
+			estudiantesCollection.Clear();
+            System.Diagnostics.Debug.WriteLine("Número de entradas en firebase " + list.Count);
+
+			foreach (var item in list)
+			{
+                Estudiante estudiante = item.Object as Estudiante;
+				estudiante.Uid = item.Key;
+				estudiantesCollection.Add(estudiante);
+			}
+			return 0;
 		}
 	}
 }

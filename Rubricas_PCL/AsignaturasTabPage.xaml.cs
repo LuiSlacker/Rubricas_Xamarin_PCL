@@ -7,9 +7,11 @@ namespace Rubricas_PCL
 {
     public partial class AsignaturasTabPage : TabbedPage
     {
-        public AsignaturasTabPage()
+
+        public AsignaturasTabPage(Asignatura asignatura)
         {
-            InitializeComponent();
+            Children.Add(new EstudiantesDentroAsignaturasPage(asignatura.Uid));
+            Children.Add(new EvaluacionesDentroAsignaturasPage());
         }
     }
 }

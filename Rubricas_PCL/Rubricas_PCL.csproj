@@ -48,6 +48,9 @@
     <EmbeddedResource Include="EvaluacionesDentroAsignaturasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="EstudiantesCreateUpdatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -75,6 +78,12 @@
     </Compile>
     <Compile Include="EvaluacionesDentroAsignaturasPage.xaml.cs">
       <DependentUpon>EvaluacionesDentroAsignaturasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Asignatura.cs" />
+    <Compile Include="Estudiante.cs" />
+    <Compile Include="Evaluacion.cs" />
+    <Compile Include="EstudiantesCreateUpdatePage.xaml.cs">
+      <DependentUpon>EstudiantesCreateUpdatePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

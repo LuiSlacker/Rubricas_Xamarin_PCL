@@ -28,11 +28,11 @@ namespace Rubricas_PCL
             if (isCreateMode) {
                 //Asignatura newAsignatura =  new Asignatura { Name = name.Text, Number = number.Text };
 				var item = await firebase
-                      .Child(Utils.Entity.FIRE_ASIGNATURAS)
+                    .Child(Utils.FireBase_Entity.ASIGNATURAS)
                       .PostAsync(newAsignatura);
             } else {
 				await firebase
-                  .Child(Utils.Entity.FIRE_ASIGNATURAS)
+                  .Child(Utils.FireBase_Entity.ASIGNATURAS)
                   .Child(newAsignatura.Uid)
                   .PutAsync(newAsignatura);
             }

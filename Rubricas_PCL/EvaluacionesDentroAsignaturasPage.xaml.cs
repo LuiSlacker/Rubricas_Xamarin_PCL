@@ -6,32 +6,6 @@ using Xamarin.Forms;
 
 namespace Rubricas_PCL
 {
-
-	public class Evaluacion : INotifyPropertyChanged
-	{
-		private string name;
-		private string apellido;
-
-		public string Name
-		{
-			set
-			{
-				if (name != value)
-				{
-					name = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Name"));
-					}
-				}
-			}
-			get => name;
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
-
-
 	public partial class EvaluacionesDentroAsignaturasPage : ContentPage
 	{
 		IList<Evaluacion> evaluacionesCollection = new ObservableCollection<Evaluacion>{
