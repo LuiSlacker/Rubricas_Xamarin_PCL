@@ -100,14 +100,13 @@ namespace Rubricas_PCL
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
 		{
-			//if (e.SelectedItem == null)
-			//{
-			//	return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
-			//}
+			if (e.SelectedItem == null)
+			{
+				return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
+			}
 
-			////App.MasterDetailPage.Detail = new NavigationPage(new AsignaturasTabPage());
-			//await Navigation.PushAsync(new AsignaturasTabPage());
-			//((ListView)sender).SelectedItem = null; // unselect item
+			await Navigation.PushAsync(new AsignaturasTabPage());
+			((ListView)sender).SelectedItem = null; // unselect item
 		}
 
 		async public void OnEdit(object sender, EventArgs e)

@@ -39,6 +39,15 @@
     <EmbeddedResource Include="MenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="AsignaturasTabPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EstudiantesDentroAsignaturasPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EvaluacionesDentroAsignaturasPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -58,6 +67,15 @@
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="AsignaturasTabPage.xaml.cs">
+      <DependentUpon>AsignaturasTabPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EstudiantesDentroAsignaturasPage.xaml.cs">
+      <DependentUpon>EstudiantesDentroAsignaturasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EvaluacionesDentroAsignaturasPage.xaml.cs">
+      <DependentUpon>EvaluacionesDentroAsignaturasPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
