@@ -84,7 +84,7 @@ namespace Rubricas_PCL
 		public AsignaturasPage()
 		{
 			InitializeComponent();
-            firebase = new FirebaseClient("https://rubricas-70761.firebaseio.com/");
+            firebase = Utils.FIREBASE;
 
 			BindingContext = this;
 			asignaturas_List.ItemsSource = asignaturasCollection;
@@ -92,9 +92,10 @@ namespace Rubricas_PCL
 
 		async void onAddBtnClicked(object sender, EventArgs e)
 		{
-
-            var secondPage = new AsignaturasCreateUpdatePage(asignaturasCollection, true);
-			await Navigation.PushAsync(secondPage);
+            Asignatura newAsignatura = new Asignatura();
+            var nextPage = new AsignaturasCreateUpdatePage(true);
+            nextPage.BindingContext = newAsignatura;
+			await Navigation.PushAsync(nextPage);
 		}
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
@@ -111,12 +112,12 @@ namespace Rubricas_PCL
 
 		async public void OnEdit(object sender, EventArgs e)
 		{
-			//var menuItem = ((MenuItem)sender);
-			//Asignatura asignatura = menuItem.CommandParameter as Asignatura;
+			var menuItem = ((MenuItem)sender);
+			Asignatura asignatura = menuItem.CommandParameter as Asignatura;
 
-			//var nextPage = new NewAsignaturaPage(asignaturasCollection, false);
-			//nextPage.BindingContext = asignatura;
-			//await Navigation.PushAsync(nextPage);
+            var nextPage = new AsignaturasCreateUpdatePage(false);
+			nextPage.BindingContext = asignatura;
+			await Navigation.PushAsync(nextPage);
 		}
 
 		public void OnDelete(object sender, EventArgs e)
@@ -135,7 +136,7 @@ namespace Rubricas_PCL
 		public async Task<int> getFireAsignaturas()
 		{
             var list = (await firebase
-                        .Child("asignaturas")
+                        .Child(Utils.Entity.FIRE_ASIGNATURAS)
                         .OnceAsync<Asignatura>());
 
             asignaturasCollection.Clear();
@@ -144,7 +145,7 @@ namespace Rubricas_PCL
             foreach(var item in list) {
                 Asignatura asignatura = item.Object as Asignatura;
                 asignatura.Uid = item.Key;
-                asignaturasCollection.Add((asignatura));
+                asignaturasCollection.Add(asignatura);
             }
             return 0;
 		}
