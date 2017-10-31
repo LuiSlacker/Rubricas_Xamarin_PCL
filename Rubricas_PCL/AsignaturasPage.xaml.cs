@@ -87,7 +87,6 @@ namespace Rubricas_PCL
                         .OnceAsync<Asignatura>());
 
             asignaturasCollection.Clear();
-            Debug.WriteLine("Número de entradas en firebase " + list.Count);
 
             foreach(var item in list) {
                 Asignatura asignatura = item.Object as Asignatura;

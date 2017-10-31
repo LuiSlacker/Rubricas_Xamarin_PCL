@@ -54,11 +54,19 @@ namespace Rubricas_PCL
 			await Navigation.PushAsync(nextPage);
 		}
 
-		public void OnDelete(object sender, EventArgs e)
+		async public void OnDelete(object sender, EventArgs e)
 		{
 			var menuItem = ((MenuItem)sender);
 			Estudiante estudiante = menuItem.CommandParameter as Estudiante;
-			estudiantesCollection.Remove(estudiante);
+
+			await firebase
+                .Child(Utils.FireBase_Entity.ASIGNATURAS)
+				.Child(asignaturaUid)
+                .Child(Utils.FireBase_Entity.ESTUDIANTES)
+                .Child(estudiante.Uid)
+				.DeleteAsync();
+
+			await getFireEstudiantes();
 		}
 
 		protected async override void OnAppearing()
@@ -76,7 +84,6 @@ namespace Rubricas_PCL
                         .OnceAsync<Estudiante>());
 
 			estudiantesCollection.Clear();
-            System.Diagnostics.Debug.WriteLine("Número de entradas en firebase " + list.Count);
 
 			foreach (var item in list)
 			{
