@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Rubricas_PCL"
+    x:Class="Rubricas_PCL.RubricasPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+" Clicked="onAddBtnClicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ListView ItemsSource="{Binding}" ItemSelected="onSelection">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                 <ViewCell.ContextActions>
+                    <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Editar" />
+                    <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Borrar" IsDestructive="True" />
+                 </ViewCell.ContextActions>
+                 <StackLayout Padding="15,10">
+                     <Label Text="{Binding Name}" />
+                 </StackLayout>
+              </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

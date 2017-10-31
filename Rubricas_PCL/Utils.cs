@@ -9,6 +9,7 @@ namespace Rubricas_PCL
         public static class FireBase_Entity {
             public static string ASIGNATURAS = "asignaturas";
             public static string ESTUDIANTES = "estudiantes";
+            public static string RUBRICAS = "rubricas";
         } 
         
     }

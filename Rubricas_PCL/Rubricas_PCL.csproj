@@ -51,6 +51,12 @@
     <EmbeddedResource Include="EstudiantesCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="RubricasPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RubricaCreateUpdatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -84,6 +90,13 @@
     <Compile Include="Evaluacion.cs" />
     <Compile Include="EstudiantesCreateUpdatePage.xaml.cs">
       <DependentUpon>EstudiantesCreateUpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RubricasPage.xaml.cs">
+      <DependentUpon>RubricasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Rubrica.cs" />
+    <Compile Include="RubricaCreateUpdatePage.xaml.cs">
+      <DependentUpon>RubricaCreateUpdatePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

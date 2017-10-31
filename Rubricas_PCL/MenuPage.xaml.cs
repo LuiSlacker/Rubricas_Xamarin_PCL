@@ -23,8 +23,8 @@ namespace Rubricas_PCL
 
 		void onRubricasBtnClicked(object sender, EventArgs e)
 		{
-			//App.MasterDetailPage.Detail = new NavigationPage(new RubricasPage());
-			//App.MasterDetailPage.IsPresented = false;
+			App.MasterDetailPage.Detail = new NavigationPage(new RubricasPage());
+			App.MasterDetailPage.IsPresented = false;
 		}
 	}
 }
