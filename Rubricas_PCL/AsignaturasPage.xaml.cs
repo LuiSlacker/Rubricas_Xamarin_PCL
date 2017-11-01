@@ -10,10 +10,6 @@ using System.Diagnostics;
 
 namespace Rubricas_PCL
 {
-
-	
-
-
 	public partial class AsignaturasPage : ContentPage
 	{
 		IList<Asignatura> asignaturasCollection = new ObservableCollection<Asignatura>{

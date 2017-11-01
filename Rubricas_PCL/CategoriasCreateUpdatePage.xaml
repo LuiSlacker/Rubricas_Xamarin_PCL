@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Rubricas_PCL.CategoriasCreateUpdatePage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="10, 10, 10, 10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Nombre: "></Label>
+                <Entry x:Name="name" Text="{Binding Name}" Placeholder="presentacion" HorizontalOptions="FillAndExpand"></Entry>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Peso (%): "></Label>
+                <Entry x:Name="peso" Text="{Binding Peso}" Placeholder="50" HorizontalOptions="FillAndExpand"></Entry>
+            </StackLayout>
+            <Button x:Name="btnLabel" Clicked="onBtnClicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
