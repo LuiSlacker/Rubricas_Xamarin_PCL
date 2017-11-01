@@ -11,6 +11,7 @@ namespace Rubricas_PCL
             public static string ESTUDIANTES = "estudiantes";
             public static string RUBRICAS = "rubricas";
             public static string CATEGORIAS = "categorias";
+            public static string ELEMENTOS = "elementos";
         } 
         
     }

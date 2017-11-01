@@ -11,9 +11,7 @@ namespace Rubricas_PCL
 {
 	public partial class CategoriasDentroRubricasPage : ContentPage
 	{
-		IList<Categoria> categoriasCollection = new ObservableCollection<Categoria>{
-			new Categoria{Name="presentacion oral", Peso="50"},
-		};
+		IList<Categoria> categoriasCollection = new ObservableCollection<Categoria>{};
         private string rubricaUid;
         private FirebaseClient firebase;
 
@@ -38,13 +36,14 @@ namespace Rubricas_PCL
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
 		{
-			//if (e.SelectedItem == null)
-			//{
-			//	return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
-			//}
+			if (e.SelectedItem == null)
+			{
+				return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
+			}
 
-			//await Navigation.PushAsync(new ElementosDentroCategoriasPage());
-			//((ListView)sender).SelectedItem = null; // unselect item
+            Categoria categoria = e.SelectedItem as Categoria;
+            await Navigation.PushAsync(new ElementosDentroCategoriasPage(rubricaUid, categoria.Uid));
+			((ListView)sender).SelectedItem = null; // unselect item
 		}
 
 		async public void OnEdit(object sender, EventArgs e)

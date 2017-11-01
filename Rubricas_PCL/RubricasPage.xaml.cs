@@ -9,15 +9,10 @@ using System.Threading.Tasks;
 
 namespace Rubricas_PCL
 {
-
-	
-
 	public partial class RubricasPage : ContentPage
 	{
 
-		IList<Rubrica> rubricasCollection = new ObservableCollection<Rubrica>{
-			new Rubrica{Name="rubrica1"},
-		};
+		IList<Rubrica> rubricasCollection = new ObservableCollection<Rubrica>{};
         private FirebaseClient firebase;
 
         public RubricasPage()

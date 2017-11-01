@@ -29,7 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="Rubricas_PCLPage.xaml" />
     <EmbeddedResource Include="AsignaturasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -63,13 +62,16 @@
     <EmbeddedResource Include="CategoriasCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="ElementosDentroCategoriasPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ElementoCreateUpdatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Rubricas_PCLPage.xaml.cs">
-      <DependentUpon>Rubricas_PCLPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AsignaturasPage.xaml.cs">
@@ -110,6 +112,13 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="CategoriasCreateUpdatePage.xaml.cs">
       <DependentUpon>CategoriasCreateUpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ElementosDentroCategoriasPage.xaml.cs">
+      <DependentUpon>ElementosDentroCategoriasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Elemento.cs" />
+    <Compile Include="ElementoCreateUpdatePage.xaml.cs">
+      <DependentUpon>ElementoCreateUpdatePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
