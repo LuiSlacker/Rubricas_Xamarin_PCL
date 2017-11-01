@@ -12,6 +12,7 @@ namespace Rubricas_PCL
             public static string RUBRICAS = "rubricas";
             public static string CATEGORIAS = "categorias";
             public static string ELEMENTOS = "elementos";
+            public static string EVALUACIONES = "evaluaciones";
         } 
         
     }

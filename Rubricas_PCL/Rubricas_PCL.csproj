@@ -68,6 +68,9 @@
     <EmbeddedResource Include="ElementoCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="EvaluacionesCreateUpdatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -119,6 +122,9 @@
     <Compile Include="Elemento.cs" />
     <Compile Include="ElementoCreateUpdatePage.xaml.cs">
       <DependentUpon>ElementoCreateUpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EvaluacionesCreateUpdatePage.xaml.cs">
+      <DependentUpon>EvaluacionesCreateUpdatePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

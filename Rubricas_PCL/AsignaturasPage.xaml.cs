@@ -12,10 +12,7 @@ namespace Rubricas_PCL
 {
 	public partial class AsignaturasPage : ContentPage
 	{
-		IList<Asignatura> asignaturasCollection = new ObservableCollection<Asignatura>{
-			new Asignatura{Name="matemáticas", Number="RF1001"},
-		};
-
+		IList<Asignatura> asignaturasCollection = new ObservableCollection<Asignatura>{};
         FirebaseClient firebase;
 
 		public AsignaturasPage()

@@ -11,7 +11,7 @@ namespace Rubricas_PCL
         public AsignaturasTabPage(Asignatura asignatura)
         {
             Children.Add(new EstudiantesDentroAsignaturasPage(asignatura.Uid));
-            Children.Add(new EvaluacionesDentroAsignaturasPage());
+            Children.Add(new EvaluacionesDentroAsignaturasPage(asignatura.Uid));
         }
     }
 }

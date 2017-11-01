@@ -2,27 +2,34 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Query;
 using Xamarin.Forms;
 
 namespace Rubricas_PCL
 {
 	public partial class EvaluacionesDentroAsignaturasPage : ContentPage
 	{
-		IList<Evaluacion> evaluacionesCollection = new ObservableCollection<Evaluacion>{
-			new Evaluacion{Name="parcial 1"},
-		};
+		IList<Evaluacion> evaluacionesCollection = new ObservableCollection<Evaluacion>{};
+        private FirebaseClient firebase;
+        private string asignaturaUid;
 
-		public EvaluacionesDentroAsignaturasPage()
+        public EvaluacionesDentroAsignaturasPage(string asignaturaUid)
 		{
+            this.asignaturaUid = asignaturaUid;
 			BindingContext = evaluacionesCollection;
 			InitializeComponent();
+            firebase = Utils.FIREBASE;
 		}
 
 		async void onAddBtnClicked(object sender, EventArgs e)
 		{
 
-			//var secondPage = new EvaluacionesCreateUpdatePage(evaluacionesCollection, true);
-			//await Navigation.PushAsync(secondPage);
+            var nextPage = new EvaluacionesCreateUpdatePage(asignaturaUid, true) {
+                BindingContext = new Evaluacion()
+            };
+			await Navigation.PushAsync(nextPage);
 		}
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
@@ -38,19 +45,52 @@ namespace Rubricas_PCL
 
 		async public void OnEdit(object sender, EventArgs e)
 		{
-			//var menuItem = ((MenuItem)sender);
-			//Evaluacion evaluacion = menuItem.CommandParameter as Evaluacion;
+			var menuItem = ((MenuItem)sender);
+			Evaluacion evaluacion = menuItem.CommandParameter as Evaluacion;
 
-			//var nextPage = new EvaluacionesCreateUpdatePage(evaluacionesCollection, false);
-			//nextPage.BindingContext = evaluacion;
-			//await Navigation.PushAsync(nextPage);
+			var nextPage = new EvaluacionesCreateUpdatePage(asignaturaUid, false);
+			nextPage.BindingContext = evaluacion;
+			await Navigation.PushAsync(nextPage);
 		}
 
-		public void OnDelete(object sender, EventArgs e)
+		async public void OnDelete(object sender, EventArgs e)
 		{
 			var menuItem = ((MenuItem)sender);
 			Evaluacion evaluacion = menuItem.CommandParameter as Evaluacion;
-			evaluacionesCollection.Remove(evaluacion);
+			
+            await firebase
+				.Child(Utils.FireBase_Entity.ASIGNATURAS)
+				.Child(asignaturaUid)
+                .Child(Utils.FireBase_Entity.EVALUACIONES)
+				.Child(evaluacion.Uid)
+				.DeleteAsync();
+
+			await getFireEvaluaciones();
+		}
+
+		protected async override void OnAppearing()
+		{
+			base.OnAppearing();
+			await getFireEvaluaciones();
+		}
+
+		public async Task<int> getFireEvaluaciones()
+		{
+			var list = (await firebase
+						.Child(Utils.FireBase_Entity.ASIGNATURAS)
+						.Child(asignaturaUid)
+                        .Child(Utils.FireBase_Entity.EVALUACIONES)
+                        .OnceAsync<Evaluacion>());
+            
+			evaluacionesCollection.Clear();
+
+			foreach (var item in list)
+			{
+                Evaluacion evaluacion = item.Object as Evaluacion;
+				evaluacion.Uid = item.Key;
+				evaluacionesCollection.Add(evaluacion);
+			}
+			return 0;
 		}
 	}
 
