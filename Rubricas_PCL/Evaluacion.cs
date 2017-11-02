@@ -7,7 +7,7 @@ namespace Rubricas_PCL
 	{
 		private string uid;
         private string name;
-		private string apellido;
+		private string rubrica_uid;
 
 		public string Uid
 		{
@@ -43,6 +43,26 @@ namespace Rubricas_PCL
 				}
 			}
 			get => name;
+		}
+
+		public string RubricaUid
+		{
+			set
+			{
+				if (rubrica_uid != value)
+				{
+					rubrica_uid = value;
+
+					if (PropertyChanged != null)
+					{
+						PropertyChanged(this, new PropertyChangedEventArgs("RubricaUid"));
+					}
+				}
+			}
+			get
+			{
+				return rubrica_uid;
+			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

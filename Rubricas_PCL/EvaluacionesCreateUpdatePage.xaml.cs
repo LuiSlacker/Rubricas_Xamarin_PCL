@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
 using Xamarin.Forms;
@@ -11,6 +12,7 @@ namespace Rubricas_PCL
 		private bool isCreateMode;
         private FirebaseClient firebase;
         private string asignaturaUid;
+        private List<Rubrica> rubricas = new List<Rubrica>();
 
         public EvaluacionesCreateUpdatePage(string asignaturaUid, bool isCreateMode)
 		{
@@ -21,11 +23,13 @@ namespace Rubricas_PCL
             firebase = Utils.FIREBASE;
 			this.Title = isCreateMode ? "Añadir evaluacion" : "Editar evaluacion";
 			btnLabel.Text = isCreateMode ? "Guardar" : "Actualizar";
+
 		}
 
 		async void onBtnClicked(object sender, EventArgs e)
 		{
             var newEvaluacion = (Evaluacion)BindingContext;
+            newEvaluacion.RubricaUid = rubricas[picker.SelectedIndex].Uid;
 			if (isCreateMode)
 			{
 				var item = await firebase
@@ -46,5 +50,31 @@ namespace Rubricas_PCL
 
 			await Navigation.PopAsync();
 		}
+
+		protected async override void OnAppearing()
+		{
+			base.OnAppearing();
+			await getFireRubricas();
+		}
+
+		public async Task<int> getFireRubricas()
+        {
+            List<string> rubricasStrings = new List<string>();
+			var list = (await firebase
+						.Child(Utils.FireBase_Entity.RUBRICAS)
+						.OnceAsync<Rubrica>());
+
+			foreach (var item in list)
+			{
+				Rubrica rubrica = item.Object as Rubrica;
+                rubrica.Uid = item.Key;
+				rubricas.Add(rubrica);
+                rubricasStrings.Add(rubrica.Name);
+			}
+            picker.ItemsSource = rubricasStrings;
+
+			return 0;
+		}
+
 	}
 }

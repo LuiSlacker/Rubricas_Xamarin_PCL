@@ -6,6 +6,11 @@
                 <Label Text="Nombre: "></Label>
                 <Entry x:Name="name" Text="{Binding Name}" Placeholder="parcial" HorizontalOptions="FillAndExpand"></Entry>
             </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Rúbrica: "></Label>
+                <Picker x:Name="picker" Title="Elige una rúbrica" ItemsSource="{Binding}" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
             <Button x:Name="btnLabel" Clicked="onBtnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
