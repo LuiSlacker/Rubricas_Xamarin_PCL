@@ -66,32 +66,14 @@ namespace Rubricas_PCL
                 .Child(estudiante.Uid)
 				.DeleteAsync();
 
-			await getFireEstudiantes();
+			await FirebaseDB.getEstudiantesForAsignatura(this.asignaturaUid, estudiantesCollection);
 		}
 
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-			await getFireEstudiantes();
+            await FirebaseDB.getEstudiantesForAsignatura(this.asignaturaUid, estudiantesCollection);
 		}
-
-		public async Task<int> getFireEstudiantes()
-		{
-			var list = (await firebase
-                        .Child(Utils.FireBase_Entity.ASIGNATURAS)
-                        .Child(this.asignaturaUid)
-                        .Child(Utils.FireBase_Entity.ESTUDIANTES)
-                        .OnceAsync<Estudiante>());
-
-			estudiantesCollection.Clear();
-
-			foreach (var item in list)
-			{
-                Estudiante estudiante = item.Object as Estudiante;
-				estudiante.Uid = item.Key;
-				estudiantesCollection.Add(estudiante);
-			}
-			return 0;
-		}
+		
 	}
 }

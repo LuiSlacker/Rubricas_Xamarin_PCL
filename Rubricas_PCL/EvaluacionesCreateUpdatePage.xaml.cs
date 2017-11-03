@@ -37,6 +37,8 @@ namespace Rubricas_PCL
 					.Child(asignaturaUid)
                     .Child(Utils.FireBase_Entity.EVALUACIONES)
 					.PostAsync(newEvaluacion);
+                
+                populateCalificacionCollection(newEvaluacion.RubricaUid, item.Key);
 			}
 			else
 			{
@@ -50,6 +52,26 @@ namespace Rubricas_PCL
 
 			await Navigation.PopAsync();
 		}
+
+        async private void populateCalificacionCollection(string rubricaUid, string evaluacionUid) {
+            IList<Estudiante> estudiantes = await FirebaseDB.getEstudiantesForAsignatura(asignaturaUid);
+            Rubrica rubrica = await FirebaseDB.getRubricaForId(rubricaUid);
+
+			foreach (var estudiante in estudiantes)
+			{
+                System.Diagnostics.Debug.WriteLine(estudiante.Name);
+                CalificacionEvaluacion calificacionEvaluacion = new CalificacionEvaluacion(estudiante);
+				var item = await firebase
+					.Child(Utils.FireBase_Entity.ASIGNATURAS)
+					.Child(asignaturaUid)
+					.Child(Utils.FireBase_Entity.EVALUACIONES)
+                    .Child(evaluacionUid)
+                    .Child(Utils.FireBase_Entity.CALIFICACION)
+					.PostAsync(calificacionEvaluacion);
+
+
+			}
+        }
 
 		protected async override void OnAppearing()
 		{

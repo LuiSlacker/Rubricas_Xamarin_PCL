@@ -65,30 +65,14 @@ namespace Rubricas_PCL
                 .Child(rubrica.Uid)
 				.DeleteAsync();
 
-			await getFireRubricas();
+			await FirebaseDB.getRubricas(rubricasCollection);
 		}
 
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-			await getFireRubricas();
+            await FirebaseDB.getRubricas(rubricasCollection);
 		}
 
-		public async Task<int> getFireRubricas()
-		{
-			var list = (await firebase
-                        .Child(Utils.FireBase_Entity.RUBRICAS)
-                        .OnceAsync<Rubrica>());
-
-			rubricasCollection.Clear();
-
-			foreach (var item in list)
-			{
-                Rubrica rubrica = item.Object as Rubrica;
-				rubrica.Uid = item.Key;
-				rubricasCollection.Add(rubrica);
-			}
-			return 0;
-		}
 	}
 }

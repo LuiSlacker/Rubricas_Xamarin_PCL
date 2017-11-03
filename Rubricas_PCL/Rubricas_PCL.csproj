@@ -71,6 +71,9 @@
     <EmbeddedResource Include="EvaluacionesCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="SingleEvaluacionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -126,6 +129,14 @@
     <Compile Include="EvaluacionesCreateUpdatePage.xaml.cs">
       <DependentUpon>EvaluacionesCreateUpdatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SingleEvaluacionPage.xaml.cs">
+      <DependentUpon>SingleEvaluacionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FirebaseDB.cs" />
+    <Compile Include="Calificacion.cs" />
+    <Compile Include="CalificacionEvaluacion.cs" />
+    <Compile Include="CalificacionCategoria.cs" />
+    <Compile Include="CalificacionElemento.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

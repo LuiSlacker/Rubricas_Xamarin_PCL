@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Rubricas_PCL
@@ -8,7 +9,7 @@ namespace Rubricas_PCL
 		private string uid;
         private string name;
 
-		public string Uid
+        public string Uid
 		{
 			set
 			{
@@ -27,6 +28,7 @@ namespace Rubricas_PCL
 				return uid;
 			}
 		}
+
 		public string Name
 		{
 			set
