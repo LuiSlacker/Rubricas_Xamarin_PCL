@@ -3,13 +3,19 @@ namespace Rubricas_PCL
 {
     public class CalificacionElemento
     {
-		public int nivel { get; set; }
-		public string elementoUid { get; set; }
+		public int Nivel { get; set; }
+		public string ElementoUid { get; set; }
+        public string ElementoName { get; set; }
 
-        public CalificacionElemento(int _nivel, string _elementoUid)
+		public CalificacionElemento()
 		{
-			nivel = _nivel;
-            elementoUid = _elementoUid;
+		}
+
+        public CalificacionElemento(int nivel, Elemento elemento)
+		{
+			Nivel = nivel;
+            ElementoUid = elemento.Uid;
+            ElementoName = elemento.Name;
 		}
     }
 }

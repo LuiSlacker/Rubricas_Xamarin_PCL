@@ -10,7 +10,7 @@ namespace Rubricas_PCL
 	{
         IList<CalificacionEvaluacion> calificacionCollection = new ObservableCollection<CalificacionEvaluacion>{};
         private string asignaturaUid;
-        private string evaluacionUid;
+        private Evaluacion evaluacion;
 
         public SingleEvaluacionPage(Evaluacion evaluacion, string asignaturaUid)
 		{
@@ -18,24 +18,25 @@ namespace Rubricas_PCL
 			InitializeComponent();
             this.Title = evaluacion.Name;
             this.asignaturaUid = asignaturaUid;
-            this.evaluacionUid = evaluacion.Uid;
+            this.evaluacion = evaluacion;
 		}
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
 		{
-			//if (e.SelectedItem == null)
-			//{
-			//	return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
-			//}
+			if (e.SelectedItem == null)
+			{
+				return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
+			}
 
-			//await Navigation.PushAsync(new EvaluacionUIPage());
-			//((ListView)sender).SelectedItem = null; // unselect item
+            CalificacionEvaluacion calificacionEvaluacion = e.SelectedItem as CalificacionEvaluacion;
+            await Navigation.PushAsync(new EvaluacionUIPage(asignaturaUid, evaluacion, calificacionEvaluacion.Uid));
+			((ListView)sender).SelectedItem = null; // unselect item
 		}
 
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-            await FirebaseDB.getCalificacionesForEvaluacion(asignaturaUid, evaluacionUid, calificacionCollection);
+            await FirebaseDB.getCalificacionesForEvaluacion(asignaturaUid, evaluacion.Uid, calificacionCollection);
 		}
 	}
 

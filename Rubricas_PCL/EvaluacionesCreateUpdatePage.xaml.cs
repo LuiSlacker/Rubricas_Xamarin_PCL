@@ -72,7 +72,7 @@ namespace Rubricas_PCL
 
                 foreach (var categoria in categorias)
                 {
-                    CalificacionCategoria calificacionCategoria = new CalificacionCategoria(categoria.Uid);
+                    CalificacionCategoria calificacionCategoria = new CalificacionCategoria(categoria);
 					var categoriaItem = await firebase
     					.Child(Utils.FireBase_Entity.ASIGNATURAS)
     					.Child(asignaturaUid)
@@ -86,7 +86,7 @@ namespace Rubricas_PCL
                     List<Elemento> elementos = await FirebaseDB.getElementosForCategoria(rubricaUid, categoria.Uid);
                     foreach (var elemento in elementos)
                     {
-                        CalificacionElemento calificacionElemento = new CalificacionElemento(0, elemento.Uid);
+                        CalificacionElemento calificacionElemento = new CalificacionElemento(0, elemento);
 						var elementoItem = await firebase
     						.Child(Utils.FireBase_Entity.ASIGNATURAS)
     						.Child(asignaturaUid)

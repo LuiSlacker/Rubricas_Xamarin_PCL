@@ -74,6 +74,9 @@
     <EmbeddedResource Include="SingleEvaluacionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="EvaluacionUIPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -137,6 +140,9 @@
     <Compile Include="CalificacionEvaluacion.cs" />
     <Compile Include="CalificacionCategoria.cs" />
     <Compile Include="CalificacionElemento.cs" />
+    <Compile Include="EvaluacionUIPage.xaml.cs">
+      <DependentUpon>EvaluacionUIPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

@@ -44,7 +44,6 @@ namespace Rubricas_PCL
 			{
 				Estudiante estudiante = item.Object as Estudiante;
                 if (item.Key == estudianteUid) return estudiante;
-				estudiante.Uid = item.Key;
 			}
 			return null;
 		}
@@ -132,6 +131,8 @@ namespace Rubricas_PCL
                         .Child(Utils.FireBase_Entity.CALIFICACION)
                         .OnceAsync<CalificacionEvaluacion>());
 
+            calificacionCollection.Clear();
+
 			foreach (var item in list)
 			{
                 CalificacionEvaluacion calificacion = item.Object as CalificacionEvaluacion;
@@ -143,6 +144,51 @@ namespace Rubricas_PCL
 				calificacionCollection.Add(calificacion);
 			}
 			return calificacionCollection;
+		}
+
+        public static async Task<List<CalificacionCategoria>> getCategoriasForCalificacion(string asignaturaUid, string evaluacionUid, string calificacionUid)
+		{
+            var calificacionCategorias = new List<CalificacionCategoria>();
+			var list = (await FIREBASE
+						.Child(Utils.FireBase_Entity.ASIGNATURAS)
+						.Child(asignaturaUid)
+						.Child(Utils.FireBase_Entity.EVALUACIONES)
+						.Child(evaluacionUid)
+						.Child(Utils.FireBase_Entity.CALIFICACION)
+                        .Child(calificacionUid)
+                        .Child(Utils.FireBase_Entity.CATEGORIAS)
+						.OnceAsync<CalificacionCategoria>());
+
+			foreach (var item in list)
+			{
+				CalificacionCategoria calificacionCategoria = item.Object as CalificacionCategoria;
+                calificacionCategoria.Uid = item.Key;
+				calificacionCategorias.Add(calificacionCategoria);
+			}
+			return calificacionCategorias;
+		}
+
+		public static async Task<List<CalificacionElemento>> getElementForCalificacion(string asignaturaUid, string evaluacionUid, string calificacionUid, string categoriaUid)
+		{
+			var calificacionElementos = new List<CalificacionElemento>();
+			var list = (await FIREBASE
+						.Child(Utils.FireBase_Entity.ASIGNATURAS)
+						.Child(asignaturaUid)
+						.Child(Utils.FireBase_Entity.EVALUACIONES)
+						.Child(evaluacionUid)
+						.Child(Utils.FireBase_Entity.CALIFICACION)
+						.Child(calificacionUid)
+						.Child(Utils.FireBase_Entity.CATEGORIAS)
+                        .Child(categoriaUid)
+                        .Child(Utils.FireBase_Entity.ELEMENTOS)
+                        .OnceAsync<CalificacionElemento>());
+
+			foreach (var item in list)
+			{
+                CalificacionElemento calificacionElemento = item.Object as CalificacionElemento;
+				calificacionElementos.Add(calificacionElemento);
+			}
+			return calificacionElementos;
 		}
     }
 }

@@ -3,11 +3,18 @@ namespace Rubricas_PCL
 {
     public class CalificacionCategoria
     {
-		public string categoriaUid { get; set; }
+		public string CategoriaUid { get; set; }
+        public string CategoriaName { get; set; }
+        public string Uid { get; set; }
 
-		public CalificacionCategoria(string _categoriaUid)
+		public CalificacionCategoria()
 		{
-            categoriaUid = _categoriaUid;
+		}
+
+        public CalificacionCategoria(Categoria categoria)
+		{
+            CategoriaUid = categoria.Uid;
+            CategoriaName = categoria.Name;
 		}
     }
 }
