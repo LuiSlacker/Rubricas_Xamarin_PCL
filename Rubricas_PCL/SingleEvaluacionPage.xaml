@@ -6,7 +6,8 @@
                 <DataTemplate>
                   <ViewCell>
                      <StackLayout Padding="15, 0, 0, 0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                        <Label Text="{Binding Name}" YAlign="Center"/>
+                        <Label Text="{Binding EstudianteNombre}" YAlign="Center"/>
+                        <Label Text="{Binding EstudianteApellido}" YAlign="Center"/>
                         <Label Text="{Binding Nota}" YAlign="Center" HorizontalOptions="EndAndExpand" TextColor="Silver"/>
                      </StackLayout>
                   </ViewCell>

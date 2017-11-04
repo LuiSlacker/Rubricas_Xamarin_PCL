@@ -6,58 +6,19 @@ using Xamarin.Forms;
 
 namespace Rubricas_PCL
 {
-	public class SingleEvaluacion : INotifyPropertyChanged
-	{
-		private string name;
-		private string nota;
-
-		public string Name
-		{
-			set
-			{
-				if (name != value)
-				{
-					name = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Name"));
-					}
-				}
-			}
-			get => name;
-		}
-
-		public string Nota
-		{
-			set
-			{
-				if (nota != value)
-				{
-					nota = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Nota"));
-					}
-				}
-			}
-			get => nota;
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
-
 	public partial class SingleEvaluacionPage : ContentPage
 	{
-		IList<SingleEvaluacion> categoriasCollection = new ObservableCollection<SingleEvaluacion>{
-			new SingleEvaluacion{Name="Ludwig Goohsen", Nota="4.5"},
-			new SingleEvaluacion{Name="Jon Doe", Nota="3.5"},
-		};
+        IList<CalificacionEvaluacion> calificacionCollection = new ObservableCollection<CalificacionEvaluacion>{};
+        private string asignaturaUid;
+        private string evaluacionUid;
 
-		public SingleEvaluacionPage()
+        public SingleEvaluacionPage(Evaluacion evaluacion, string asignaturaUid)
 		{
-			BindingContext = categoriasCollection;
+			BindingContext = calificacionCollection;
 			InitializeComponent();
-			this.Title = "Evaluacion";
+            this.Title = evaluacion.Name;
+            this.asignaturaUid = asignaturaUid;
+            this.evaluacionUid = evaluacion.Uid;
 		}
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
@@ -69,6 +30,12 @@ namespace Rubricas_PCL
 
 			//await Navigation.PushAsync(new EvaluacionUIPage());
 			//((ListView)sender).SelectedItem = null; // unselect item
+		}
+
+		protected async override void OnAppearing()
+		{
+			base.OnAppearing();
+            await FirebaseDB.getCalificacionesForEvaluacion(asignaturaUid, evaluacionUid, calificacionCollection);
 		}
 	}
 

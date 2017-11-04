@@ -32,13 +32,13 @@ namespace Rubricas_PCL
             newEvaluacion.RubricaUid = rubricas[picker.SelectedIndex].Uid;
 			if (isCreateMode)
 			{
-				var item = await firebase
+				var evaluacionItem = await firebase
 					.Child(Utils.FireBase_Entity.ASIGNATURAS)
 					.Child(asignaturaUid)
                     .Child(Utils.FireBase_Entity.EVALUACIONES)
 					.PostAsync(newEvaluacion);
                 
-                populateCalificacionCollection(newEvaluacion.RubricaUid, item.Key);
+                populateCalificacionCollection(newEvaluacion.RubricaUid, evaluacionItem.Key);
 			}
 			else
 			{
@@ -56,12 +56,13 @@ namespace Rubricas_PCL
         async private void populateCalificacionCollection(string rubricaUid, string evaluacionUid) {
             IList<Estudiante> estudiantes = await FirebaseDB.getEstudiantesForAsignatura(asignaturaUid);
             Rubrica rubrica = await FirebaseDB.getRubricaForId(rubricaUid);
+            List<Categoria> categorias = await FirebaseDB.getCategoriasForRubrica(rubricaUid);
 
 			foreach (var estudiante in estudiantes)
 			{
                 System.Diagnostics.Debug.WriteLine(estudiante.Name);
                 CalificacionEvaluacion calificacionEvaluacion = new CalificacionEvaluacion(estudiante);
-				var item = await firebase
+				var calificacionItem = await firebase
 					.Child(Utils.FireBase_Entity.ASIGNATURAS)
 					.Child(asignaturaUid)
 					.Child(Utils.FireBase_Entity.EVALUACIONES)
@@ -69,6 +70,36 @@ namespace Rubricas_PCL
                     .Child(Utils.FireBase_Entity.CALIFICACION)
 					.PostAsync(calificacionEvaluacion);
 
+                foreach (var categoria in categorias)
+                {
+                    CalificacionCategoria calificacionCategoria = new CalificacionCategoria(categoria.Uid);
+					var categoriaItem = await firebase
+    					.Child(Utils.FireBase_Entity.ASIGNATURAS)
+    					.Child(asignaturaUid)
+    					.Child(Utils.FireBase_Entity.EVALUACIONES)
+    					.Child(evaluacionUid)
+    					.Child(Utils.FireBase_Entity.CALIFICACION)
+                        .Child(calificacionItem.Key)
+                        .Child(Utils.FireBase_Entity.CATEGORIAS)
+    					.PostAsync(calificacionCategoria);
+
+                    List<Elemento> elementos = await FirebaseDB.getElementosForCategoria(rubricaUid, categoria.Uid);
+                    foreach (var elemento in elementos)
+                    {
+                        CalificacionElemento calificacionElemento = new CalificacionElemento(0, elemento.Uid);
+						var elementoItem = await firebase
+    						.Child(Utils.FireBase_Entity.ASIGNATURAS)
+    						.Child(asignaturaUid)
+    						.Child(Utils.FireBase_Entity.EVALUACIONES)
+    						.Child(evaluacionUid)
+    						.Child(Utils.FireBase_Entity.CALIFICACION)
+    						.Child(calificacionItem.Key)
+    						.Child(Utils.FireBase_Entity.CATEGORIAS)
+                            .Child(categoriaItem.Key)
+                            .Child(Utils.FireBase_Entity.ELEMENTOS)
+    						.PostAsync(calificacionElemento);
+                    }
+                }
 
 			}
         }
