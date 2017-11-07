@@ -7,7 +7,7 @@ namespace Rubricas_PCL
 	{
 		private string uid;
         private string name;
-		private string peso;
+		private int peso;
 
 		public string Uid
 		{
@@ -45,7 +45,7 @@ namespace Rubricas_PCL
 			get => name;
 		}
 
-		public string Peso
+		public int Peso
 		{
 			set
 			{

@@ -6,6 +6,7 @@ namespace Rubricas_PCL
 		public string CategoriaUid { get; set; }
         public string CategoriaName { get; set; }
         public string Uid { get; set; }
+        public int Peso { get; set; }
 
 		public CalificacionCategoria()
 		{
@@ -15,6 +16,7 @@ namespace Rubricas_PCL
 		{
             CategoriaUid = categoria.Uid;
             CategoriaName = categoria.Name;
+            Peso = categoria.Peso;
 		}
     }
 }

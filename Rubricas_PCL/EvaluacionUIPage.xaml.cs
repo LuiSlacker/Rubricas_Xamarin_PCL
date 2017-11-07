@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace Rubricas_PCL
 {
@@ -10,6 +11,7 @@ namespace Rubricas_PCL
         private string asignaturaUid;
 		private string evaluacionUid;
         private string calificacionUid;
+        private List<CalificacionCategoria> calificacionCategorias;
 
         public EvaluacionUIPage(string asignaturaUid, Evaluacion evaluacion, string calificacionUid)
         {
@@ -24,7 +26,7 @@ namespace Rubricas_PCL
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-            List<CalificacionCategoria> calificacionCategorias = await FirebaseDB.getCategoriasForCalificacion(asignaturaUid, evaluacionUid, calificacionUid);
+            calificacionCategorias = await FirebaseDB.getCategoriasForCalificacion(asignaturaUid, evaluacionUid, calificacionUid);
 
             var layout = new StackLayout{
                 Margin = new Thickness(20, 20, 20, 20)
@@ -37,7 +39,7 @@ namespace Rubricas_PCL
                 };
 				layout.Children.Add(categoriaLabel);
 
-                List<CalificacionElemento> calificacionElementos = await FirebaseDB.getElementForCalificacion(asignaturaUid, evaluacionUid, calificacionUid, categoria.Uid);
+                List<CalificacionElemento> calificacionElementos = await FirebaseDB.getElementsForCalificacion(asignaturaUid, evaluacionUid, calificacionUid, categoria.Uid);
                 foreach (CalificacionElemento elemento in calificacionElementos)
                 {
                     var elementLayout = new StackLayout
@@ -51,9 +53,16 @@ namespace Rubricas_PCL
                         Text = elemento.ElementoName
                     };
 
-                    var elementoPicker = new Picker{
-                        HorizontalOptions = LayoutOptions.FillAndExpand
+                    var elementoPicker = new Picker
+                    {
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        StyleClass = new ObservableCollection<string>() {categoria.Uid, elemento.Uid },
+                        ItemsSource = new List<string>() {elemento.Nivel1Name, elemento.Nivel2Name, elemento.Nivel3Name, elemento.Nivel4Name },
+						
                     };
+                    elementoPicker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
+                    elementoPicker.SelectedIndex = elemento.Nivel;
+
                     elementLayout.Children.Add(elementoLabel);
                     elementLayout.Children.Add(elementoPicker);
 
@@ -65,9 +74,48 @@ namespace Rubricas_PCL
             var btn = new Button{
                 Text = "Guardar"
             };
+			btn.Clicked += async (sender, ea) => {
+                CalificacionEvaluacion calificacion = await FirebaseDB.getCalificacionById(asignaturaUid, evaluacionUid, calificacionUid);
+                calificacion.Nota = await calculateNewAverage();
+                await FirebaseDB.updateCalificacion(asignaturaUid, evaluacionUid, calificacionUid, calificacion);
+                await Navigation.PopAsync();
+			};
+
             layout.Children.Add(btn);
 			Content = layout;
 
 		}
+
+		async void OnPickerSelectedIndexChanged(object sender, EventArgs e)
+		{
+			var picker = (Picker)sender;
+			int selectedIndex = picker.SelectedIndex;
+            string calificacionCategoriaUid = picker.StyleClass[0];
+            string calificacionElementoUid = picker.StyleClass[1];
+            CalificacionElemento calificacionElemento = await FirebaseDB.getCalificacionElementById(asignaturaUid, evaluacionUid, calificacionUid, calificacionCategoriaUid, calificacionElementoUid);
+            calificacionElemento.Nivel = selectedIndex;
+
+            await FirebaseDB.updateCalificacionElemento(asignaturaUid, evaluacionUid, calificacionUid, calificacionCategoriaUid, calificacionElementoUid, calificacionElemento);
+		}
+
+		async Task<float> calculateNewAverage()
+		{
+			float notaAverage = 0.0f;
+            foreach(CalificacionCategoria calificacionCategoria in calificacionCategorias)
+			{
+                List<CalificacionElemento> calificacionElementos = await FirebaseDB.getElementsForCalificacion(asignaturaUid, evaluacionUid, calificacionUid, calificacionCategoria.Uid);
+				float categoriaAverage = 0.0f;
+				foreach (CalificacionElemento calificacionElemento in calificacionElementos)
+				{
+                    int nivel = calificacionElemento.Nivel + 1;
+                    int elementoPeso = calificacionElemento.Peso;
+					categoriaAverage += elementoPeso * nivel / 100.0f;
+				}
+                int categoriaPeso = calificacionCategoria.Peso;
+				notaAverage += categoriaPeso * categoriaAverage / 100.0f;
+			}
+			return notaAverage * 1.25f;
+		}
     }
+	
 }
