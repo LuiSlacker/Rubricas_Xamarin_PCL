@@ -146,7 +146,7 @@ namespace Rubricas_PCL
 			return calificacionCollection;
 		}
 
-        public static async Task<CalificacionEvaluacion> getCalificacionById(string asignaturaUid, string evaluacionUid, string calificacionUid)
+        public static async Task<CalificacionEvaluacionPlain> getCalificacionById(string asignaturaUid, string evaluacionUid, string calificacionUid)
 		{
 			var list = (await FIREBASE
 						.Child(Utils.FireBase_Entity.ASIGNATURAS)
@@ -154,19 +154,19 @@ namespace Rubricas_PCL
 						.Child(Utils.FireBase_Entity.EVALUACIONES)
 						.Child(evaluacionUid)
 						.Child(Utils.FireBase_Entity.CALIFICACION)
-						.OnceAsync<CalificacionEvaluacion>());
+						.OnceAsync<CalificacionEvaluacionPlain>());
 
 
 			foreach (var item in list)
 			{
-                CalificacionEvaluacion calificacion = item.Object as CalificacionEvaluacion;
+                CalificacionEvaluacionPlain calificacion = item.Object as CalificacionEvaluacionPlain;
                 if (item.Key == calificacionUid) return calificacion;
 
 			}
 			return null;
 		}
 
-		public static async Task<int> updateCalificacion(string asignaturaUid, string evaluacionUid, string calificacionUid, CalificacionEvaluacion updatedCalificacion)
+        public static async Task<int> updateCalificacion(string asignaturaUid, string evaluacionUid, string calificacionUid, CalificacionEvaluacionPlain updatedCalificacion)
 		{
 			await FIREBASE
 				.Child(Utils.FireBase_Entity.ASIGNATURAS)

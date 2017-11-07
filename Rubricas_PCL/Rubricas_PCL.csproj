@@ -143,6 +143,7 @@
     <Compile Include="EvaluacionUIPage.xaml.cs">
       <DependentUpon>EvaluacionUIPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CalificacionEvaluacionPlain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

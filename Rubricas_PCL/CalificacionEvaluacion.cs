@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Rubricas_PCL
 {
     public class CalificacionEvaluacion : INotifyPropertyChanged
     {
-		private string uid;
-		private float nota;
-		
-		
-		public string EstudianteUid { get; set; }
-		public string EstudianteNombre { get; set; }
-		public string EstudianteApellido { get; set; }
+        private string uid;
+        private float nota;
+
+
+        public string EstudianteUid { get; set; }
+        public string EstudianteNombre { get; set; }
+        public string EstudianteApellido { get; set; }
 
 		public CalificacionEvaluacion()
 		{
