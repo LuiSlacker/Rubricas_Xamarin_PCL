@@ -11,6 +11,7 @@ namespace Rubricas_PCL
 		private string rubrica_uid;
 
         private Dictionary<string, CalificacionEvaluacion> _calificaciones = new Dictionary<string, CalificacionEvaluacion>();
+        public int SelectedRubricaPickerIndex { get; set; }
 
 		public string Uid
 		{

@@ -23,13 +23,13 @@ namespace Rubricas_PCL
             firebase = Utils.FIREBASE;
 			this.Title = isCreateMode ? "Añadir evaluacion" : "Editar evaluacion";
 			btnLabel.Text = isCreateMode ? "Guardar" : "Actualizar";
-
 		}
 
 		async void onBtnClicked(object sender, EventArgs e)
 		{
             var newEvaluacion = (Evaluacion)BindingContext;
             newEvaluacion.RubricaUid = rubricas[picker.SelectedIndex].Uid;
+            newEvaluacion.SelectedRubricaPickerIndex = picker.SelectedIndex;
 			if (isCreateMode)
 			{
 				var evaluacionItem = await firebase
@@ -108,6 +108,9 @@ namespace Rubricas_PCL
 		{
 			base.OnAppearing();
 			await getFireRubricas();
+
+			Evaluacion evaluacion = (Evaluacion)BindingContext;
+			picker.SelectedIndex = evaluacion.SelectedRubricaPickerIndex;
 		}
 
 		public async Task<int> getFireRubricas()

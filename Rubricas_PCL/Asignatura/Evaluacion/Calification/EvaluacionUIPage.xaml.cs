@@ -56,7 +56,7 @@ namespace Rubricas_PCL
                     var elementoPicker = new Picker
                     {
                         HorizontalOptions = LayoutOptions.FillAndExpand,
-                        StyleClass = new ObservableCollection<string>() {categoria.Uid, elemento.Uid },
+                        StyleClass = new ObservableCollection<string>() {categoria.Uid, elemento.Uid }, // missuse StyleClass to set values to each picker
                         ItemsSource = new List<string>() {elemento.Nivel1Name, elemento.Nivel2Name, elemento.Nivel3Name, elemento.Nivel4Name },
 						
                     };
