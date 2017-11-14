@@ -4,12 +4,14 @@ using System.ComponentModel;
 
 namespace Rubricas_PCL
 {
-	public class Rubrica : INotifyPropertyChanged
+	public class Categoria : INotifyPropertyChanged
 	{
 		private string uid;
         private string name;
+		private int peso;
+        private Dictionary<string, Elemento> _elementos = new Dictionary<string, Elemento>();
 
-        public string Uid
+		public string Uid
 		{
 			set
 			{
@@ -44,6 +46,29 @@ namespace Rubricas_PCL
 			}
 			get => name;
 		}
+
+		public int Peso
+		{
+			set
+			{
+				if (peso != value)
+				{
+					peso = value;
+					if (PropertyChanged != null)
+					{
+						PropertyChanged(this, new PropertyChangedEventArgs("Peso"));
+					}
+				}
+			}
+			get => peso;
+		}
+
+        public Dictionary<string, Elemento> elementos
+		{
+			set => _ = value;
+            get { return _elementos; }
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

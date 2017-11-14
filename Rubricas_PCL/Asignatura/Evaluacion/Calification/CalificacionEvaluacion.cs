@@ -14,6 +14,8 @@ namespace Rubricas_PCL
         public string EstudianteNombre { get; set; }
         public string EstudianteApellido { get; set; }
 
+        private Dictionary<string, CalificacionCategoria> _categorias = new Dictionary<string, CalificacionCategoria>();
+
 		public CalificacionEvaluacion()
 		{
 		}
@@ -21,6 +23,12 @@ namespace Rubricas_PCL
 		public CalificacionEvaluacion(Estudiante estudiante)
 		{
 			EstudianteUid = estudiante.Uid;
+		}
+
+		public Dictionary<string, CalificacionCategoria> categorias
+		{
+			set => _categorias = value;
+			get { return _categorias; }
 		}
 
         public string Uid

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Rubricas_PCL
@@ -8,6 +9,8 @@ namespace Rubricas_PCL
 		private string uid;
         private string name;
 		private string rubrica_uid;
+
+        private Dictionary<string, CalificacionEvaluacion> _calificaciones = new Dictionary<string, CalificacionEvaluacion>();
 
 		public string Uid
 		{
@@ -63,6 +66,12 @@ namespace Rubricas_PCL
 			{
 				return rubrica_uid;
 			}
+		}
+
+        public Dictionary<string, CalificacionEvaluacion> calificaciones
+		{
+            set => _calificaciones = value;
+			get { return _calificaciones; }
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

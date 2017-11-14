@@ -75,7 +75,7 @@ namespace Rubricas_PCL
                 Text = "Guardar"
             };
 			btn.Clicked += async (sender, ea) => {
-                CalificacionEvaluacionPlain calificacion = await FirebaseDB.getCalificacionById(asignaturaUid, evaluacionUid, calificacionUid);
+                CalificacionEvaluacion calificacion = await FirebaseDB.getCalificacionById(asignaturaUid, evaluacionUid, calificacionUid);
                 calificacion.Nota = await calculateNewAverage();
                 await FirebaseDB.updateCalificacion(asignaturaUid, evaluacionUid, calificacionUid, calificacion);
                 await Navigation.PopAsync();

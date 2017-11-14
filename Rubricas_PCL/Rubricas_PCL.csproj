@@ -29,52 +29,52 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="AsignaturasPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AsignaturasCreateUpdatePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="MenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="AsignaturasTabPage.xaml">
+    <EmbeddedResource Include="Asignatura\AsignaturasCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="EstudiantesDentroAsignaturasPage.xaml">
+    <EmbeddedResource Include="Asignatura\AsignaturasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="EvaluacionesDentroAsignaturasPage.xaml">
+    <EmbeddedResource Include="Asignatura\AsignaturasTabPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="EstudiantesCreateUpdatePage.xaml">
+    <EmbeddedResource Include="Rubrica\RubricaCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="RubricasPage.xaml">
+    <EmbeddedResource Include="Rubrica\RubricasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="RubricaCreateUpdatePage.xaml">
+    <EmbeddedResource Include="Rubrica\Categoria\CategoriasCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="CategoriasDentroRubricasPage.xaml">
+    <EmbeddedResource Include="Rubrica\Categoria\CategoriasDentroRubricasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="CategoriasCreateUpdatePage.xaml">
+    <EmbeddedResource Include="Rubrica\Categoria\Elemento\ElementoCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="ElementosDentroCategoriasPage.xaml">
+    <EmbeddedResource Include="Rubrica\Categoria\Elemento\ElementosDentroCategoriasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="ElementoCreateUpdatePage.xaml">
+    <EmbeddedResource Include="Asignatura\Estudiante\EstudiantesCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="EvaluacionesCreateUpdatePage.xaml">
+    <EmbeddedResource Include="Asignatura\Estudiante\EstudiantesDentroAsignaturasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="SingleEvaluacionPage.xaml">
+    <EmbeddedResource Include="Asignatura\Evaluacion\EvaluacionesCreateUpdatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="EvaluacionUIPage.xaml">
+    <EmbeddedResource Include="Asignatura\Evaluacion\EvaluacionesDentroAsignaturasPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asignatura\Evaluacion\Calification\EvaluacionUIPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Asignatura\Evaluacion\Calification\SingleEvaluacionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -83,67 +83,66 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AsignaturasPage.xaml.cs">
-      <DependentUpon>AsignaturasPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AsignaturasCreateUpdatePage.xaml.cs">
-      <DependentUpon>AsignaturasCreateUpdatePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Compile Include="AsignaturasTabPage.xaml.cs">
+    <Compile Include="DB\FirebaseDB.cs" />
+    <Compile Include="Asignatura\AsignaturasCreateUpdatePage.xaml.cs">
+      <DependentUpon>AsignaturasCreateUpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Asignatura\AsignaturasPage.xaml.cs">
+      <DependentUpon>AsignaturasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Asignatura\AsignaturasTabPage.xaml.cs">
       <DependentUpon>AsignaturasTabPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EstudiantesDentroAsignaturasPage.xaml.cs">
-      <DependentUpon>EstudiantesDentroAsignaturasPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EvaluacionesDentroAsignaturasPage.xaml.cs">
-      <DependentUpon>EvaluacionesDentroAsignaturasPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Asignatura.cs" />
-    <Compile Include="Estudiante.cs" />
-    <Compile Include="Evaluacion.cs" />
-    <Compile Include="EstudiantesCreateUpdatePage.xaml.cs">
-      <DependentUpon>EstudiantesCreateUpdatePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="RubricasPage.xaml.cs">
-      <DependentUpon>RubricasPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Rubrica.cs" />
-    <Compile Include="RubricaCreateUpdatePage.xaml.cs">
+    <Compile Include="Asignatura\Asignatura.cs" />
+    <Compile Include="Rubrica\Rubrica.cs" />
+    <Compile Include="Rubrica\RubricaCreateUpdatePage.xaml.cs">
       <DependentUpon>RubricaCreateUpdatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CategoriasDentroRubricasPage.xaml.cs">
-      <DependentUpon>CategoriasDentroRubricasPage.xaml</DependentUpon>
+    <Compile Include="Rubrica\RubricasPage.xaml.cs">
+      <DependentUpon>RubricasPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Categoria.cs" />
-    <Compile Include="CategoriasCreateUpdatePage.xaml.cs">
+    <Compile Include="Rubrica\Categoria\Categoria.cs" />
+    <Compile Include="Rubrica\Categoria\CategoriasCreateUpdatePage.xaml.cs">
       <DependentUpon>CategoriasCreateUpdatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ElementosDentroCategoriasPage.xaml.cs">
-      <DependentUpon>ElementosDentroCategoriasPage.xaml</DependentUpon>
+    <Compile Include="Rubrica\Categoria\CategoriasDentroRubricasPage.xaml.cs">
+      <DependentUpon>CategoriasDentroRubricasPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Elemento.cs" />
-    <Compile Include="ElementoCreateUpdatePage.xaml.cs">
+    <Compile Include="Rubrica\Categoria\Elemento\Elemento.cs" />
+    <Compile Include="Rubrica\Categoria\Elemento\ElementoCreateUpdatePage.xaml.cs">
       <DependentUpon>ElementoCreateUpdatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EvaluacionesCreateUpdatePage.xaml.cs">
+    <Compile Include="Rubrica\Categoria\Elemento\ElementosDentroCategoriasPage.xaml.cs">
+      <DependentUpon>ElementosDentroCategoriasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Asignatura\Estudiante\Estudiante.cs" />
+    <Compile Include="Asignatura\Estudiante\EstudiantesCreateUpdatePage.xaml.cs">
+      <DependentUpon>EstudiantesCreateUpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Asignatura\Estudiante\EstudiantesDentroAsignaturasPage.xaml.cs">
+      <DependentUpon>EstudiantesDentroAsignaturasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Asignatura\Evaluacion\Evaluacion.cs" />
+    <Compile Include="Asignatura\Evaluacion\EvaluacionesCreateUpdatePage.xaml.cs">
       <DependentUpon>EvaluacionesCreateUpdatePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SingleEvaluacionPage.xaml.cs">
-      <DependentUpon>SingleEvaluacionPage.xaml</DependentUpon>
+    <Compile Include="Asignatura\Evaluacion\EvaluacionesDentroAsignaturasPage.xaml.cs">
+      <DependentUpon>EvaluacionesDentroAsignaturasPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FirebaseDB.cs" />
-    <Compile Include="Calificacion.cs" />
-    <Compile Include="CalificacionEvaluacion.cs" />
-    <Compile Include="CalificacionCategoria.cs" />
-    <Compile Include="CalificacionElemento.cs" />
-    <Compile Include="EvaluacionUIPage.xaml.cs">
+    <Compile Include="Asignatura\Evaluacion\Calification\Calificacion.cs" />
+    <Compile Include="Asignatura\Evaluacion\Calification\CalificacionCategoria.cs" />
+    <Compile Include="Asignatura\Evaluacion\Calification\CalificacionElemento.cs" />
+    <Compile Include="Asignatura\Evaluacion\Calification\CalificacionEvaluacion.cs" />
+    <Compile Include="Asignatura\Evaluacion\Calification\EvaluacionUIPage.xaml.cs">
       <DependentUpon>EvaluacionUIPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalificacionEvaluacionPlain.cs" />
+    <Compile Include="Asignatura\Evaluacion\Calification\SingleEvaluacionPage.xaml.cs">
+      <DependentUpon>SingleEvaluacionPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -182,6 +181,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DB\" />
+    <Folder Include="Asignatura\" />
+    <Folder Include="Rubrica\" />
+    <Folder Include="Rubrica\Categoria\" />
+    <Folder Include="Rubrica\Categoria\Elemento\" />
+    <Folder Include="Asignatura\Estudiante\" />
+    <Folder Include="Asignatura\Evaluacion\" />
+    <Folder Include="Asignatura\Evaluacion\Calification\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

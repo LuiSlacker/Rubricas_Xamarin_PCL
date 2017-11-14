@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Rubricas_PCL
 {
-	public class Categoria : INotifyPropertyChanged
+	public class Rubrica : INotifyPropertyChanged
 	{
 		private string uid;
         private string name;
-		private int peso;
+        private Dictionary<string, Categoria> _categorias = new Dictionary<string, Categoria>();
 
-		public string Uid
+        public string Uid
 		{
 			set
 			{
@@ -45,20 +46,10 @@ namespace Rubricas_PCL
 			get => name;
 		}
 
-		public int Peso
+        public Dictionary<string, Categoria> categorias
 		{
-			set
-			{
-				if (peso != value)
-				{
-					peso = value;
-					if (PropertyChanged != null)
-					{
-						PropertyChanged(this, new PropertyChangedEventArgs("Peso"));
-					}
-				}
-			}
-			get => peso;
+            set => _categorias = value;
+            get { return _categorias; }
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
