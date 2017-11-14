@@ -16,8 +16,6 @@ namespace Rubricas_PCL
 				Detail = new NavigationPage(new AsignaturasPage()),
 			};
 			MainPage = MasterDetailPage;
-
-            FirebaseDB.getCalificacionById("-KxnzNbCQHYbWFn3KuL_", "-KyIWQszRLK-TqqHf8f4", "-KyIWROrtQDNAr62q_Fh");
         }
 
         protected override void OnStart()
