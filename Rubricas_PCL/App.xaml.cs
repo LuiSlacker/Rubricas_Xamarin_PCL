@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 
+
 namespace Rubricas_PCL
 {
     public partial class App : Application
@@ -10,12 +11,12 @@ namespace Rubricas_PCL
         {
             InitializeComponent();
 
-			MasterDetailPage = new MasterDetailPage
-			{
-				Master = new MenuPage(),
-				Detail = new NavigationPage(new AsignaturasPage()),
-			};
-			MainPage = MasterDetailPage;
+			MasterDetailPage = new MasterDetailClassPage();
+            //{
+            //    Master = new MenuPage(),
+            //    Detail = new NavigationPage(new AsignaturasPage())
+            //};
+            MainPage = MasterDetailPage;
         }
 
         protected override void OnStart()
