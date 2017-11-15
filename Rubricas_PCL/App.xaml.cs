@@ -12,10 +12,6 @@ namespace Rubricas_PCL
             InitializeComponent();
 
 			MasterDetailPage = new MasterDetailClassPage();
-            //{
-            //    Master = new MenuPage(),
-            //    Detail = new NavigationPage(new AsignaturasPage())
-            //};
             MainPage = MasterDetailPage;
         }
 

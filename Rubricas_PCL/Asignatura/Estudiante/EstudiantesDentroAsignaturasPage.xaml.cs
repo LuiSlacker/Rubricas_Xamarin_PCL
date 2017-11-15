@@ -35,13 +35,14 @@ namespace Rubricas_PCL
 
 		async void onSelection(object sender, SelectedItemChangedEventArgs e)
 		{
-			//if (e.SelectedItem == null)
-			//{
-			//	return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
-			//}
+			if (e.SelectedItem == null)
+			{
+				return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
+			}
 
-			//await Navigation.PushAsync(new EstudiantesReportPage());
-			//((ListView)sender).SelectedItem = null; // unselect item
+            Estudiante estudiante = e.SelectedItem as Estudiante;
+            await Navigation.PushAsync(new EstudianteReportePage(asignaturaUid, estudiante.Uid));
+			((ListView)sender).SelectedItem = null; // unselect item
 		}
 
 		async public void OnEdit(object sender, EventArgs e)
