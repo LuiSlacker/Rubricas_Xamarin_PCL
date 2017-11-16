@@ -10,22 +10,55 @@
                 <Label Text="Peso (%): "></Label>
                 <Entry x:Name="peso" Text="{Binding Peso}" Placeholder="50" HorizontalOptions="FillAndExpand"></Entry>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Nivel1: "></Label>
-                <Entry x:Name="nivel1" Text="{Binding Nivel1}" Placeholder="A" HorizontalOptions="FillAndExpand"></Entry>
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Nivel1: "></Label>
+                    <Entry x:Name="nivel1" Text="{Binding Nivel1}" Placeholder="A" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="De: "></Label>
+                    <Entry x:Name="deNivel1" Text="{Binding DeNivel1}" Placeholder="0" HorizontalOptions="FillAndExpand"></Entry>
+                    <Label Text="Hasta: "></Label>
+                    <Entry x:Name="hastaNivel1" Text="{Binding HastaNivel1}" Placeholder="2" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Nivel2: "></Label>
-                <Entry x:Name="nivel2" Text="{Binding Nivel2}" Placeholder="B" HorizontalOptions="FillAndExpand"></Entry>
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Nivel2: "></Label>
+                    <Entry x:Name="nivel2" Text="{Binding Nivel2}" Placeholder="B" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="De: "></Label>
+                    <Entry x:Name="deNivel2" Text="{Binding DeNivel2}" Placeholder="2" HorizontalOptions="FillAndExpand"></Entry>
+                    <Label Text="Hasta: "></Label>
+                    <Entry x:Name="hastaNivel2" Text="{Binding HastaNivel2}" Placeholder="3" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Nivel3: "></Label>
-                <Entry x:Name="nivel3" Text="{Binding Nivel3}" Placeholder="C" HorizontalOptions="FillAndExpand"></Entry>
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Nivel3: "></Label>
+                    <Entry x:Name="nivel3" Text="{Binding Nivel3}" Placeholder="C" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="De: "></Label>
+                    <Entry x:Name="deNivel3" Text="{Binding DeNivel3}" Placeholder="3" HorizontalOptions="FillAndExpand"></Entry>
+                    <Label Text="Hasta: "></Label>
+                    <Entry x:Name="hastaNivel3" Text="{Binding HastaNivel3}" Placeholder="4" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Nivel4: "></Label>
-                <Entry x:Name="nivel4" Text="{Binding Nivel4}" Placeholder="D" HorizontalOptions="FillAndExpand"></Entry>
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Nivel4: "></Label>
+                    <Entry x:Name="nivel4" Text="{Binding Nivel4}" Placeholder="D" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="De: "></Label>
+                    <Entry x:Name="deNivel4" Text="{Binding DeNivel4}" Placeholder="4" HorizontalOptions="FillAndExpand"></Entry>
+                    <Label Text="Hasta: "></Label>
+                    <Entry x:Name="hastaNivel4" Text="{Binding HastaNivel4}" Placeholder="5" HorizontalOptions="FillAndExpand"></Entry>
+                </StackLayout>
             </StackLayout>
+            
             <Button x:Name="btnLabel" Clicked="onBtnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
