@@ -5,11 +5,24 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                   <ViewCell>
-                     <StackLayout Padding="15, 0, 0, 0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                     <!--<StackLayout Padding="15, 0, 0, 0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                         <Label Text="{Binding EstudianteNombre}" YAlign="Center"/>
                         <Label Text="{Binding EstudianteApellido}" YAlign="Center"/>
                         <Label Text="{Binding Nota}" YAlign="Center" HorizontalOptions="EndAndExpand" TextColor="Silver"/>
-                     </StackLayout>
+                     </StackLayout>-->
+                    <Grid Padding="15, 0, 15, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding EstudianteNombre}" YAlign="Center" HorizontalTextAlignment="Start" Grid.Row="0" Grid.Column="0" />
+                        <Label Text="{Binding EstudianteApellido}" YAlign="Center" HorizontalTextAlignment="Start" Grid.Row="0" Grid.Column="1"/>
+                        <Label Text="{Binding Nota}" YAlign="Center" HorizontalTextAlignment="End" TextColor="Silver" Grid.Row="0" Grid.Column="2"/>
+                    </Grid>
                   </ViewCell>
                 </DataTemplate>
          </ListView.ItemTemplate>

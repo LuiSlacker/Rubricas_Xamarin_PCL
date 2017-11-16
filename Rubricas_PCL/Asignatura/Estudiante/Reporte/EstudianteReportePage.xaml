@@ -9,10 +9,17 @@
             <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="15, 0, 0, 0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                <Label Text="{Binding Name}" YAlign="Center"/>
-                                <Label Text="{Binding Nota}" YAlign="Center" HorizontalOptions="EndAndExpand" TextColor="Silver"/>
-                            </StackLayout>
+                            <Grid Padding="15, 0, 15, 0">
+                              <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                              </Grid.RowDefinitions>
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                              </Grid.ColumnDefinitions>
+                              <Label Text="{Binding Name}" YAlign="Center" HorizontalTextAlignment="Start" Grid.Row="0" Grid.Column="0" />
+                              <Label Text="{Binding Nota}" YAlign="Center" HorizontalTextAlignment="End" Grid.Row="0" Grid.Column="1" TextColor="Silver"/>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
             </ListView.ItemTemplate>
