@@ -6,7 +6,7 @@ namespace Rubricas_PCL
 	public class Calificacion : INotifyPropertyChanged
 	{
 		private string uid;
-		private float nota;
+		private double nota;
 		private string apellido;
 
 		public string Uid
@@ -29,7 +29,7 @@ namespace Rubricas_PCL
 			}
 		}
 
-		public float Nota
+		public double Nota
 		{
 			set
 			{

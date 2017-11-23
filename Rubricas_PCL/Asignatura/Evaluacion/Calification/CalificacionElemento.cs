@@ -8,6 +8,7 @@ namespace Rubricas_PCL
         public int Nivel { get; set; }
         public int Peso { get; set; }
 		public string ElementoUid { get; set; }
+        public string CalificacionCategoriaUid { get; set; }
         public string ElementoName { get; set; }
 
         public string Nivel1Name { get; set; }
@@ -26,6 +27,8 @@ namespace Rubricas_PCL
 
 		public float DeNivel4 { get; set; }
 		public float HastaNivel4 { get; set; }
+
+        public float Nota { get; set; }
 
 		public CalificacionElemento()
 		{

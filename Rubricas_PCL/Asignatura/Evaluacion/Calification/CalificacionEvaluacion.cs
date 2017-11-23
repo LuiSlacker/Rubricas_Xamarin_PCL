@@ -7,7 +7,7 @@ namespace Rubricas_PCL
     public class CalificacionEvaluacion : INotifyPropertyChanged
     {
         private string uid;
-        private float nota;
+        private double nota;
 
 
         public string EstudianteUid { get; set; }
@@ -51,13 +51,13 @@ namespace Rubricas_PCL
             }
         }
 
-        public float Nota
+        public double Nota
         {
             set
             {
                 if (nota != value)
                 {
-                    nota = value;
+                    nota = Math.Round(value, 2);
 
                     if (PropertyChanged != null)
                     {

@@ -4,7 +4,7 @@ namespace Rubricas_PCL
 {
     public static class Utils
     {
-        public static FirebaseClient FIREBASE = new FirebaseClient("https://rubricasxamarin.firebaseio.com/");
+        public static FirebaseClient FIREBASE = new FirebaseClient("https://rubricasxamarin-ac597.firebaseio.com/");
 
         public static class FireBase_Entity {
             public static string ASIGNATURAS = "asignaturas";
