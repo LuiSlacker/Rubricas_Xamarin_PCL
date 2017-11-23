@@ -12,6 +12,7 @@ namespace Rubricas_PCL
 		private string evaluacionUid;
         private string calificacionUid;
         private List<CalificacionCategoria> calificacionCategorias;
+        private Label sliderValuelabel;
 
         public EvaluacionUIPage(string asignaturaUid, Evaluacion evaluacion, string calificacionUid)
         {
@@ -56,15 +57,33 @@ namespace Rubricas_PCL
                     var elementoPicker = new Picker
                     {
                         HorizontalOptions = LayoutOptions.FillAndExpand,
-                        StyleClass = new ObservableCollection<string>() {categoria.Uid, elemento.Uid }, // missuse StyleClass to set values to each picker
+                        StyleClass = new ObservableCollection<string>() {categoria.Uid, elemento.Uid }, // misuse StyleClass to set values to each picker
                         ItemsSource = new List<string>() {elemento.Nivel1Name, elemento.Nivel2Name, elemento.Nivel3Name, elemento.Nivel4Name },
 						
                     };
                     elementoPicker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
                     elementoPicker.SelectedIndex = elemento.Nivel;
 
+
+					var elementoSlider = new Slider
+					{
+                        Minimum = (float) elemento.DeNivel1,
+                        Maximum = (float) elemento.HastaNivel1,
+                        Value = (float) elemento.DeNivel1,
+						VerticalOptions = LayoutOptions.FillAndExpand,
+                        StyleId=elemento.Uid // bind elementoUid to slider for identification in ValueChanged callback
+					};
+                    elementoSlider.ValueChanged += OnSliderValueChanged;
+
+                    sliderValuelabel = new Label
+                    {
+                        Text = elemento.DeNivel1.ToString()
+                    };
+
                     elementLayout.Children.Add(elementoLabel);
                     elementLayout.Children.Add(elementoPicker);
+                    elementLayout.Children.Add(elementoSlider);
+					elementLayout.Children.Add(sliderValuelabel);
 
                     layout.Children.Add(elementLayout);
                 }
@@ -83,7 +102,6 @@ namespace Rubricas_PCL
 
             layout.Children.Add(btn);
 			Content = layout;
-
 		}
 
 		async void OnPickerSelectedIndexChanged(object sender, EventArgs e)
@@ -96,6 +114,11 @@ namespace Rubricas_PCL
             calificacionElemento.Nivel = selectedIndex;
 
             await FirebaseDB.updateCalificacionElemento(asignaturaUid, evaluacionUid, calificacionUid, calificacionCategoriaUid, calificacionElementoUid, calificacionElemento);
+		}
+
+		void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
+		{
+			sliderValuelabel.Text = String.Format("{0:F1}", e.NewValue);
 		}
 
 		async Task<float> calculateNewAverage()
