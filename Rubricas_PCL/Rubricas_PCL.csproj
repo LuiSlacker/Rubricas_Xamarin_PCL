@@ -156,7 +156,6 @@
       <DependentUpon>EstudianteReportePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Asignatura\Estudiante\Reporte\Parcial.cs" />
-    <Compile Include="Asignatura\Evaluacion\Calification\SliderRango.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

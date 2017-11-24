@@ -66,9 +66,9 @@ namespace Rubricas_PCL
 					// elementoSlider and sliderValuelabel have to be declard before Picker since they are  accessed during initial Picker-index setting
 					var elementoSlider = new Slider
 					{
-						Minimum = (float)elemento.DeNivel1,
-						Maximum = (float)elemento.HastaNivel1,
-                        Value = (float)elemento.Nota,
+						Minimum = 0,
+						Maximum = 1,
+                        Value = 0.5,
 						VerticalOptions = LayoutOptions.FillAndExpand,
 						StyleId = elemento.Uid // bind elementoUid to slider for identification in ValueChanged callback
 					};
@@ -150,24 +150,27 @@ namespace Rubricas_PCL
 		void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
 		{
             var slider = (Slider)sender;
+            float min = (float) Convert.ToDouble(slider.StyleClass[1]);
+            float max = (float)Convert.ToDouble(slider.StyleClass[2]);
+            float actualValue = calculateSliderValue(min, max, (float)e.NewValue);
 
             bool isInitialSetting = Convert.ToBoolean(slider.StyleClass[0]);
             if (!isInitialSetting) {
                 
                 // update corresponding label
                 string elementoId = slider.StyleId;
-                setSliderValueLabelText(elementoId, e.NewValue);
+                setSliderValueLabelText(elementoId, actualValue);
 
                 // update elemento nota and push to updatedDictonary
                 CalificacionElemento calificacionElemento = calificacionElementoDict[elementoId];
-                calificacionElemento.Nota = (float)Math.Round(e.NewValue, 1);
+                calificacionElemento.Nota = (float)Math.Round(actualValue, 1);
 			}
             slider.StyleClass[0] = "false";
 		}
 
         void setSliderLimits(int selectedIndex, CalificacionElemento elemento, bool initialPickerChanged) {
-            double min = 0.0;
-            double max = 0.0;
+            float min = 0.0f;
+            float max = 0.0f;
 
             switch (selectedIndex) {
                 case 0:
@@ -193,18 +196,18 @@ namespace Rubricas_PCL
             }
 
 
-            sliderDict[elemento.Uid].StyleClass = new ObservableCollection<string>() { "" + initialPickerChanged } ;
-			sliderDict[elemento.Uid].Maximum = max;
-            sliderDict[elemento.Uid].Minimum = min;
+            sliderDict[elemento.Uid].StyleClass = new ObservableCollection<string>() { "" + initialPickerChanged, ""+min, ""+max } ;
 
             if (!initialPickerChanged) {
-				double center = min + ((max - min) / 2);
-				sliderDict[elemento.Uid].Value = center;
+                float center = min + ((max - min) / 2);
+                float actualCenter = calculateNormalizedSliderValue(min, max, center);
+                sliderDict[elemento.Uid].Value = actualCenter;
 
 				// update corresponding label
 				setSliderValueLabelText(elemento.Uid, center);
             } else {
-                sliderDict[elemento.Uid].Value = elemento.Nota;
+                float normalizedNota = calculateNormalizedSliderValue(min, max, elemento.Nota);
+                sliderDict[elemento.Uid].Value = normalizedNota;
                 setSliderValueLabelText(elemento.Uid, elemento.Nota);
             }
 
@@ -233,6 +236,14 @@ namespace Rubricas_PCL
 			}
 			return notaAverage;
 		}
+
+        private float calculateSliderValue(float min, float max, float sliderValue) {
+            return sliderValue * (max - min) + min;
+        }
+
+        private float calculateNormalizedSliderValue(float min, float max, float val) {
+            return (val - min) / (max - min);
+        }
     }
 	
 }
