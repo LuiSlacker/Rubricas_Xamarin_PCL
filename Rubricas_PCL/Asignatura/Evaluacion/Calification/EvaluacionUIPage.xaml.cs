@@ -69,6 +69,7 @@ namespace Rubricas_PCL
 						Minimum = 0,
 						Maximum = 1,
                         Value = 0.5,
+                        WidthRequest = 100,
 						VerticalOptions = LayoutOptions.FillAndExpand,
 						StyleId = elemento.Uid // bind elementoUid to slider for identification in ValueChanged callback
 					};
