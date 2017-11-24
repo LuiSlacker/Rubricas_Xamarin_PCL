@@ -64,8 +64,48 @@ namespace Rubricas_PCL
                     elementoPicker.SelectedIndexChanged += OnPickerSelectedIndexChanged;
                     elementoPicker.SelectedIndex = elemento.Nivel;
 
+                    float min = 0,max = 0,val=0;
+                    int index = elementoPicker.SelectedIndex;
 
-					var elementoSlider = new Slider
+                    switch (index)
+                    {
+                        case 0:
+                            min = (float)elemento.DeNivel1;
+                            max = (float)elemento.HastaNivel1;
+                            val = (float)(min + max) / 2;
+                            break;
+                        case 1:
+                            min = (float)elemento.DeNivel2;
+                            max = (float)elemento.HastaNivel2;
+                            val = (float)(min + max) / 2;
+                            break;
+                        case 2:
+                            min = (float)elemento.DeNivel3;
+                            max = (float)elemento.HastaNivel3;
+                            val = (float)(min + max) / 2;
+                            break;
+                        case 3:
+                            min = (float)elemento.DeNivel4;
+                            max = (float)elemento.HastaNivel4;
+                            val = (float)(min + max) / 2;
+                            break;
+                        default:
+                            min = (float)elemento.DeNivel1;
+                            max = (float)elemento.HastaNivel1;
+                            val = 0;
+                            break;
+                    }
+
+                    var rangeLabel = new Label
+                    {
+                        Text = String.Concat(min.ToString(), " <--> ", max.ToString())
+                    };
+
+                    var gradeInput = new Entry { Placeholder = String.Concat(min.ToString(), " <--> ", max.ToString()) };
+
+                    gradeInput.Completed += Entry_Completed;
+
+                    var elementoSlider = new Slider
 					{
                         Minimum = (float) elemento.DeNivel1,
                         Maximum = (float) elemento.HastaNivel1,
@@ -82,8 +122,10 @@ namespace Rubricas_PCL
 
                     elementLayout.Children.Add(elementoLabel);
                     elementLayout.Children.Add(elementoPicker);
-                    elementLayout.Children.Add(elementoSlider);
-					elementLayout.Children.Add(sliderValuelabel);
+                    elementLayout.Children.Add(rangeLabel);
+                    //elementLayout.Children.Add(gradeInput);
+                    //elementLayout.Children.Add(elementoSlider);
+					//elementLayout.Children.Add(sliderValuelabel);
 
                     layout.Children.Add(elementLayout);
                 }
@@ -104,7 +146,23 @@ namespace Rubricas_PCL
 			Content = layout;
 		}
 
-		async void OnPickerSelectedIndexChanged(object sender, EventArgs e)
+        async void Entry_Completed(object sender, EventArgs e)
+        {
+            //await DisplayAlert("Hi!", "I'm on Entry_Completed.", "Ok"); //Just some debug stuff.
+            float rng = float.Parse(((Entry)sender).Text);
+            if ((rng < 0) || (rng > 5))
+            {
+                await DisplayAlert("Error", "Nota debe estar entre 0 y 5.", "Ok");
+                ((Entry)sender).Text = "";
+            }
+            else
+            {
+                var text = ((Entry)sender).Text; //cast sender to access the properties of the Entry
+            }
+            
+        }
+
+        async void OnPickerSelectedIndexChanged(object sender, EventArgs e)
 		{
 			var picker = (Picker)sender;
 			int selectedIndex = picker.SelectedIndex;
@@ -114,6 +172,8 @@ namespace Rubricas_PCL
             calificacionElemento.Nivel = selectedIndex;
 
             await FirebaseDB.updateCalificacionElemento(asignaturaUid, evaluacionUid, calificacionUid, calificacionCategoriaUid, calificacionElementoUid, calificacionElemento);
+
+            //OnAppearing();
 		}
 
 		void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
@@ -121,7 +181,26 @@ namespace Rubricas_PCL
 			sliderValuelabel.Text = String.Format("{0:F1}", e.NewValue);
 		}
 
-		async Task<float> calculateNewAverage()
+        async Task<float> calculateNewGrade()
+        {
+            float notaAverage = 0.0f;
+            foreach (CalificacionCategoria calificacionCategoria in calificacionCategorias)
+            {
+                List<CalificacionElemento> calificacionElementos = await FirebaseDB.getElementsForCalificacion(asignaturaUid, evaluacionUid, calificacionUid, calificacionCategoria.Uid);
+                float categoriaAverage = 0.0f;
+                foreach (CalificacionElemento calificacionElemento in calificacionElementos)
+                {
+                    int nivel = calificacionElemento.Nivel + 1;
+                    int elementoPeso = calificacionElemento.Peso;
+                    categoriaAverage += elementoPeso * nivel / 100.0f;
+                }
+                int categoriaPeso = calificacionCategoria.Peso;
+                notaAverage += categoriaPeso * categoriaAverage / 100.0f;
+            }
+            return notaAverage * 1.25f;
+        }
+
+        async Task<float> calculateNewAverage()
 		{
 			float notaAverage = 0.0f;
             foreach(CalificacionCategoria calificacionCategoria in calificacionCategorias)
